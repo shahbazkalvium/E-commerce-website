@@ -1,9 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'
-import { RxAvatar } from 'react-avatar'
+// import { RxAvatar } from 'react-avatar'
 import { useState } from 'react'
 import axios from 'axios'
+import { IoMdPerson } from "react-icons/io";
+
 
 
 export const Signup = () => {
@@ -47,8 +49,7 @@ export const Signup = () => {
             console.log(err)
         })  
     }
-
-  return (
+return (
     <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -97,8 +98,7 @@ export const Signup = () => {
                 />
               </div>
             </div>
-
-            <div>
+<div>
               <label
                 htmlFor="password"
                 className="block text-sm font-medium text-gray-700"
@@ -135,7 +135,7 @@ export const Signup = () => {
                 htmlFor="avatar"
                 className="block text-sm font-medium text-gray-700"
               ></label>
-              <div className="mt-2 flex items-center">
+               <div className="mt-2 flex items-center">
                 <span className="inline-block h-8 w-8 rounded-full overflow-hidden">
                   {avatar ? (
                     <img
@@ -144,9 +144,10 @@ export const Signup = () => {
                       className="h-full w-full object-cover rounded-full"
                     />
                   ) : (
-                    <RxAvatar className="h-8 w-8" />
+
+                    <IoMdPerson className="h-8 w-8" />
                   )}
-                </span>
+                </span> 
                 <label
                   htmlFor="file-input"
                   className="ml-5 flex items-center justify-center px-4 py-2 border border-gray-300
@@ -163,7 +164,7 @@ export const Signup = () => {
                   />
                 </label>
               </div>
-            </div>
+             </div>
 
             <div>
               <button
@@ -183,5 +184,6 @@ export const Signup = () => {
         </div>
       </div>
     </div>
- );
+  );
 }
+
