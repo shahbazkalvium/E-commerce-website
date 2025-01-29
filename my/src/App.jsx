@@ -4,15 +4,17 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import { Route,Routes } from 'react-router-dom'
 import {Login} from './Component/login'
-import { SignUp } from './Component/Signup'
+import { Signup } from './Component/Signup'
+import { Home } from './page/Home'
 
 function App() {
   
   return (
     <>
        <Routes>
+        <Route path = "/" element={<Home />} />
         <Route path ="/login" element={<Login />} />
-        <Route path = "/Signup" element={<SignUp />} />
+        <Route path = "/Signup" element={<Signup />} />
        </Routes>
      
     </>
