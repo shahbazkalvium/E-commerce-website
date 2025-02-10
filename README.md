@@ -69,3 +69,33 @@ Encrypting passwords is a critical security practice to protect user credentials
 - **MongoDB / PostgreSQL** (for database storage)
 - **bcrypt.js** (for password encryption)
 
+
+
+# Milestone 11 - Sending and Displaying Product Data
+
+## Objective
+In this milestone, we will create an API endpoint to send all product data to the frontend, fetch the data in the frontend, and display it dynamically using a product card component.
+
+---
+
+## Steps to Implement
+
+### Backend: Creating an API Endpoint
+1. **Set up the route** in your backend framework (Express.js, FastAPI, Django, etc.).
+2. **Fetch product data** from a database or a static array.
+3. **Send the data as a JSON response** to the frontend.
+
+
+### Frontend: Fetching Product Data
+1. **Create a function to fetch data** from the backend API.
+2. **Store the fetched data in state** using `useState` (if using React).
+3. **Use `useEffect` to call the function** when the component mounts.
+4. **Pass the data to a product card component** dynamically.
+
+## Summary
+- Created an API endpoint to send product data.
+- Fetched the data from the frontend using `fetch`.
+- Stored the data in state and dynamically displayed it using the `ProductCard` component.
+
+
+
