@@ -39,3 +39,35 @@ The first milestone focuses on laying the foundation for the e-commerce applicat
 - Initial deployment for testing. 
 
 This milestone ensures a solid starting point for feature development.
+
+
+# Card Component Milestone
+
+## How to Display a Single Card for Multiple Products?
+1. **Create a Dynamic Component:** Design a single card component that accepts product details as props.
+2. **Use Mapping:** Using array mapping to iterate over the product list and render a card for each product.
+3. **Pass Data Dynamically:** Passing  unique product information (e.g., name, price, image) to each card.
+4. **Maintain Consistency:** Ensuring  the layout remains uniform for all products.
+
+## How We Implemented the Code
+1. **Created a Card Component:**
+   - Defined a functional component that accepts props such as `name`, `price`, and `image`.
+   - Styled the component to ensure a visually appealing display.
+
+2. **Used Props for Dynamic Content:**
+   - Passed product details to the Card component dynamically.
+   - Used destructuring to extract and use the props inside the component.
+
+3. **Mapped Through Product Data:**
+   - Stored the product data in an array.
+   - Used the `.map()` function to iterate through the array and render a card for each product.
+
+4. **Ensured a Consistent Layout:**
+   - Applied consistent styling to maintain uniformity across all cards.
+   - Used flexbox or grid layout for proper alignment on the products page.
+
+5. **Optimized for Reusability:**
+   - Designed the component to be reusable across different sections of the application.
+   - Ensured scalability by making it adaptable to different datasets.
+
+
