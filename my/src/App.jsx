@@ -5,6 +5,7 @@ import './App.css'
 import { Route,Routes } from 'react-router-dom'
 import {Login} from './Component/login'
 import { SignUp } from './Component/Signup'
+import Productform from './Component/Productform'
 
 function App() {
   
@@ -13,7 +14,9 @@ function App() {
        <Routes>
         <Route path ="/login" element={<Login />} />
         <Route path = "/Signup" element={<SignUp />} />
-       </Routes>
+        <Route path = "/Home" element={<Home />} />
+        <Route path = "/Productform" element={<Productform />} />
+      </Routes>
      
     </>
   )

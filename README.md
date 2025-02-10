@@ -39,3 +39,33 @@ The first milestone focuses on laying the foundation for the e-commerce applicat
 - Initial deployment for testing. 
 
 This milestone ensures a solid starting point for feature development.
+
+## Why Encrypt Passwords?
+Encrypting passwords is a critical security practice to protect user credentials and prevent unauthorized access. Here are the main reasons:
+
+- **Protect User Data**: Keeps passwords safe if hackers access the database.
+- **Privacy**: Ensures user passwords aren’t visible to anyone.
+- **Compliance**: Follows security laws like GDPR and PCI-DSS.
+- **Stops Password Theft**: Encrypted passwords can’t be easily stolen or guessed.
+
+---
+
+## Milestone 6 
+### Steps Covered:
+
+### 1. Encrypt the Password
+- Use `bcrypt` to hash the user's password during signup.
+- Save the hashed password in the database instead of storing it as plain text.
+
+### 2. Store Complete User Data
+- Save all user details (e.g., name, email, etc.) in the database.
+- Ensure the password remains securely encrypted.
+
+---
+
+## Tools & Technologies Used
+- **Node.js** (for backend development)
+- **Express.js** (for server handling)
+- **MongoDB / PostgreSQL** (for database storage)
+- **bcrypt.js** (for password encryption)
+
