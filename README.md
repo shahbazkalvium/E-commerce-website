@@ -39,3 +39,6 @@ The first milestone focuses on laying the foundation for the e-commerce applicat
 - Initial deployment for testing. 
 
 This milestone ensures a solid starting point for feature development.
+
+Milestone 10
+In this milestone I created a schema for products. I made this using a new js file in the Model folder named Productmodel.js. In this I used mongoose to make the schema. I also created a new file called Products.js when I have all the program for initiating a post request that will store all the data in the database. I also used the middleware Multer to process and use the image files that would be uploaded of the product.I have made the neccessary changes to the middleware folder and Index.js to work as intended.
