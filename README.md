@@ -42,3 +42,12 @@ This milestone ensures a solid starting point for feature development.
 
 Milestone 17 & 18
 In these two Milestones we first added the cart details to the schema. Then we also created a post request for sending the details and storing them on the database. We also created an endpoint to receive request from cart page.
+
+Milestone 21
+This project implements an address form page for a user profile. The form captures and stores the user's address input.
+
+Features
+
+Navigation from profile to address form page.
+
+State management for address input.
