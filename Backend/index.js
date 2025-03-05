@@ -1,26 +1,41 @@
-const express = require('express');
-const app = express();
-const userRouter = require('./src/Controller/user');
+const express=require('express');
+const connectDB = require('./src/Database/db');
+const userrouter = require('./src/Controller/user');
+const { get } = require('mongoose');
+const productrouter = require('./src/Controller/Product');
+const cors = require('cors');
 
-app.use('/api/users', userRouter);
+const app=express();
 
-app.listen(3000, () => {
-    console.log('Server is running on port 3000');
+app.use(express.json());
+app.use(cors());
+
+require('dotenv').config({
+    path:'./src/config/.env'
 });
 
-const PORT = process.env.port || 5000;
-const url = process.env.db_url;
+const PORT=process.env.port || 5000;
+const url=process.env.db_url;
 
-app.get('/', (req, res) => {
+app.get('/',(req,res)=>{
     res.send('Hello World');
-});
+})
 
-app.use('/auth', userRouter);
-app.listen(PORT, async () => {
+
+app.use('/auth', userrouter);
+app.listen(PORT,async()=>{
+
     try {
         await connectDB(url);
         console.log(`Server is running on port ${PORT}`);
-    } catch (err) {
+    }
+    catch(err){
         console.log(err);
-  }
+    }
+});
+app.use('/auth', userrouter)
+app.use('/product', productrouter);
+
+app.get('/', (req,res)=>{
+    res.send('Product router');
 });
