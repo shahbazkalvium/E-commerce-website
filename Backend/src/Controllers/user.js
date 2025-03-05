@@ -21,4 +21,33 @@ const user={
 console.log(user);
 });
 
+userrouter.post('/add-address', async (req, res) => {
+    try {
+      const {
+        country,
+        city,
+        address1,
+        address2,
+        zipCode,
+        addressType,
+        email
+      } = req.body;
+      const user = await userModel.findOne({ email: email });
+      const newaddress = {
+        country,
+        city,
+        address1,
+        address2,
+        zipCode,
+        addressType
+      };
+      user.addresses.push(newaddress);
+      await user.save();
+      res.status(200).json({ message: "Address added successfully" });
+    } catch (err) {
+      console.log("error in adding address", err);
+      res.status(500).json({ message: "Error in adding address" });
+    }
+  });
+  
 module.exports = router;
