@@ -51,3 +51,6 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+Milestone 23;
+This milestone involves adding essential features for the order placement process. It includes creating a "Place Order" button in the cart page, developing a "Select Address" page to choose a delivery address, and setting up a Mongoose schema to store order details. Additionally, a backend endpoint will be implemented to fetch user addresses. By the end of this milestone, the core functionality for placing an order will be in place.
