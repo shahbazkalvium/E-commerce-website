@@ -95,3 +95,14 @@ In this milestone, we will create an API endpoint to send all product data to th
 - Fetched the data from the frontend using `fetch`.
 - Stored the data in state and dynamically displayed it using the `ProductCard` component.
 
+Milestone 16:
+## Learning Goals
+- Create a product display page.
+- Add a quantity selector and 'Add to Cart' button.
+
+## Steps
+1. Build a page showing product details (name, description, price, image).
+2. Add a field to choose product quantity.
+3. Include an 'Add to Cart' button with feedback after adding.
+
+
