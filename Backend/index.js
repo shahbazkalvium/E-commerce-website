@@ -1,6 +1,10 @@
-const express = require('express');
+
+const express=require('express');
+const connectDB = require('./src/Database/db');
+const userModel = require('./src/Model/userModel');
 const app = express();
 const userRouter = require('./src/Controller/user');
+
 
 app.use('/api/users', userRouter);
 
@@ -11,9 +15,23 @@ app.listen(3000, () => {
 const PORT = process.env.port || 5000;
 const url = process.env.db_url;
 
+
+app.use('/auth',userrouter);
+
+app.listen(PORT,async()=>{
+
+try{
+     await connectDB(url);
+     console.log(`Server is running at port ${PORT}`);
+
+}catch(err){
+    console.log(err);
+}
+
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
+
 
 app.use('/auth', userRouter);
 app.listen(PORT, async () => {
