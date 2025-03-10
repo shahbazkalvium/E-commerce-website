@@ -1,18 +1,20 @@
+
 const express=require('express');
 const connectDB = require('./src/Database/db');
 const userModel = require('./src/Model/userModel');
 const app = express();
-const userrouter = require('./src/Controllers/user');
+const userRouter = require('./src/Controller/user');
 
-require('dotenv').config({
-    path:'./src/config/.env'
+
+app.use('/api/users', userRouter);
+
+app.listen(3000, () => {
+    console.log('Server is running on port 3000');
 });
+
 const PORT = process.env.port || 5000;
 const url = process.env.db_url;
 
-app.get('/',(req,res)=>{
-    res.send('Hello World')
-})
 
 app.use('/auth',userrouter);
 
@@ -26,4 +28,17 @@ try{
     console.log(err);
 }
 
-})
+app.get('/', (req, res) => {
+    res.send('Hello World');
+});
+
+
+app.use('/auth', userRouter);
+app.listen(PORT, async () => {
+    try {
+        await connectDB(url);
+        console.log(`Server is running on port ${PORT}`);
+    } catch (err) {
+        console.log(err);
+  }
+});

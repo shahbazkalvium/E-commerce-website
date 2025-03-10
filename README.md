@@ -41,13 +41,8 @@ The first milestone focuses on laying the foundation for the e-commerce applicat
 This milestone ensures a solid starting point for feature development.
 
 
-# Card Component Milestone
 
-## How to Display a Single Card for Multiple Products?
-1. **Create a Dynamic Component:** Design a single card component that accepts product details as props.
-2. **Use Mapping:** Using array mapping to iterate over the product list and render a card for each product.
-3. **Pass Data Dynamically:** Passing  unique product information (e.g., name, price, image) to each card.
-4. **Maintain Consistency:** Ensuring  the layout remains uniform for all products.
+
 
 ## How We Implemented the Code
 1. **Created a Card Component:**
@@ -69,5 +64,35 @@ This milestone ensures a solid starting point for feature development.
 5. **Optimized for Reusability:**
    - Designed the component to be reusable across different sections of the application.
    - Ensured scalability by making it adaptable to different datasets.
+
+
+## Why Encrypt Passwords?
+Encrypting passwords is a critical security practice to protect user credentials and prevent unauthorized access. Here are the main reasons:
+
+- **Protect User Data**: Keeps passwords safe if hackers access the database.
+- **Privacy**: Ensures user passwords aren’t visible to anyone.
+- **Compliance**: Follows security laws like GDPR and PCI-DSS.
+- **Stops Password Theft**: Encrypted passwords can’t be easily stolen or guessed.
+
+---
+
+## Milestone 6 
+### Steps Covered:
+
+### 1. Encrypt the Password
+- Use `bcrypt` to hash the user's password during signup.
+- Save the hashed password in the database instead of storing it as plain text.
+
+### 2. Store Complete User Data
+- Save all user details (e.g., name, email, etc.) in the database.
+- Ensure the password remains securely encrypted.
+
+---
+
+## Tools & Technologies Used
+- **Node.js** (for backend development)
+- **Express.js** (for server handling)
+- **MongoDB / PostgreSQL** (for database storage)
+- **bcrypt.js** (for password encryption)
 
 
