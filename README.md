@@ -51,3 +51,5 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+Milestone 20 In Milestone 20, we focused on developing a system to fetch and display user profile data. First, we created the /profile API endpoint, which retrieves user details from the server and stores them in an object. Next, we built the Profile.jsx React component, which fetches the user data from the /profile endpoint and displays it in a clean, user-friendly format on the frontend. This milestone enables users to view their profile information directly in the application.
