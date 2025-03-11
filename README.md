@@ -51,3 +51,17 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+Milestone 25 - Place Order Endpoint
+
+Objective:
+Create a backend endpoint to place an order.
+
+Steps:
+1. Create an endpoint to receive product, user, and address details.
+2. Retrieve user _id using the user’s email.
+3. Create separate orders for each product with the same address.
+4. Store order details in the MongoDB order collection using the order schema.
+
+This helps understand how to build an order placement endpoint.
+
