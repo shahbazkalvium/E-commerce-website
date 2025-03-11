@@ -95,3 +95,33 @@ In this milestone, we will create an API endpoint to send all product data to th
 - Fetched the data from the frontend using `fetch`.
 - Stored the data in state and dynamically displayed it using the `ProductCard` component.
 
+- Get User Orders Endpoint - Milestone 26
+
+Objective
+
+Create a backend endpoint to retrieve all orders of a user.
+
+Steps
+
+Create an endpoint to receive the user’s email:
+
+Endpoint: /api/orders
+
+Method: GET
+
+Parameter: email (query parameter)
+
+Retrieve user _id using the email:
+
+Query the users collection to find the user with the provided email.
+
+Extract the user’s _id from the result.
+
+Use the _id to fetch all orders of that user:
+
+Query the orders collection using the user’s _id.
+
+Fetch all orders associated with that user.
+
+
+
