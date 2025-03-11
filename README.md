@@ -51,3 +51,18 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+Milestone 26 - Get User Orders Endpoint
+
+Objective:
+Create a backend endpoint to get all orders of a user.
+
+Steps:
+
+Create an endpoint to receive the user’s email.
+
+Retrieve user _id using the email.
+
+Use the _id to fetch all orders of that user.
+
+Send all user orders in the response.
