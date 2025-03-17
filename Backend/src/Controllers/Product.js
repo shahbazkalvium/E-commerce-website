@@ -1,70 +1,107 @@
-const { Router } = require("express");
-const productmodel = require("../Model/ProductModel");
-const { productupload } = require("../../multer");
-const productrouter = Router();
-const path = require("path");
+const {Router}= require('express');
+const { productupload } = require('../../multer');
+const Productmodel = require('../Model/Productmodel');
 const userModel = require("../Model/userModel");
+const productrouter=Router();
+const path = require('path');
+const { userInfo } = require('os');
 
-productrouter.get("/get-router", async (req, res) => {
+productrouter.put('/edit-cart',async(req,res)=>{
+    const {email,productid,quantity}=req.body
+    try{
+    
+    if(!email||!productid||quantity==undefined){
+     return res.status(404).json({message:"put all details"})
+    }
+    const finduser=await userModel.findOne({email:email})
+    if(!finduser){
+     return res.status(500).json({message:"user is not found"})
+    }
+ 
+    const findproduct=await Productmodel.findOne({_id:productid})
+    if(!findproduct||findproduct.stock<=0){
+     return res.status(404).json({message:"product not avzailable"})
+    }
+   
+    const findcartproduct=finduser.cart.find(item=>item.productid===productid)
+ 
+    if(!findcartproduct){
+     return res.status(404).json({message:"can not find"}) 
+    }
+    findcartproduct.quantity=quantity
+    await finduser.save()
+    return res.status(200).json({message:"edited successfully"})
+ }
+ catch(err){
+     console.log(err)
+ }
+ })
+
+productrouter.get("/get-product", async (req, res) => {
     try {
-        const productfind = await productmodel.find();
+        const productfind = await Productmodel.find();
+        console.log(productfind);
         if (!productfind) {
-            return res.status(400).json({ message: "No product found" });
+            return res.status(400).json({ message: "No products found" });
         }
-
-        const productimage = productfind.map((product) => {
+        const products = productfind.map((product) => {
             return {
                 id: product._id,
                 name: product.name,
-                price: product.price,
                 description: product.description,
-                image: product.image,
                 category: product.category,
-                stock: product.stock,
                 tags: product.tags,
+                price: product.price,
+                stock: product.stock,
                 email: product.email,
-                createdAt: product.createdAt
+                images: product.images,
+                createdAt: product.createdAt,
             };
         });
-        res.status(200).json(productimage);
+
+        return res.status(200).json({ products });
     } catch (err) {
         console.log(err);
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Server error" });
     }
 });
 
 
-productrouter.post('.cart',async(req,res)=>{
+productrouter.post('/cart',async(req,res)=>{
     const {email,productid,productname,quantity}=req.body
 
     try{
         if(!email){
-            return res.status(404).json("fill all inputbox")
+            return res.status(404).json({"fill all inputbox"})
         }
-        const findmail = await userModel.findOne({email:email})
-        if(!findemail){
-            return res.status(404).json({message:'user does not exist'})
-        }
-        if(!mongoose.types.objected.isvalid(productid)){
-            return res.status.json({message:'productis not there'})
-        }
-        if(!quantity && quantity<0){
+       
+        if(!mongoose.types.objectId.isValid(productid)){
+            return res.status(400).json({message:'product is not there'})
+        }  
+        if(!quantity&& quantity<0){
             return res.status(400).json({message:'you dont have neccessary quantity'})
         }
-        const findproduct=await productmodel.findById(productid)
-        if(!findproduct){
-            return res.status(400).json({message:'product does not exist'})
+
+        const findemail=await userModel.findOne({email:email})
+        if(!findemail){
+            return res.status(440).json({message:{'user does not exist'}})
         }
-        const cartproduct=await findemail.cart.findIndex((i)=>{
+        const findproduct=await Productmodel.findById(productid)
+        if(!findproduct){
+            return res.status(400).json({message:'product is not exist '})
+        }
+
+
+        const cartproductid=await findemail.cart.findIndex((i)=>{
             return i.productid===productid
         })
+  
         if(cartproductid>-1){
             findemail.cart[cartproductid].quantity+=quantity
         }
         else{
             findemail.cart.push({productid,productname,quantity})
         }
-
 
     }
     catch(err){
@@ -74,74 +111,71 @@ productrouter.post('.cart',async(req,res)=>{
 
 
 productrouter.get('/getcart',async(req,res)=>{
-    try{
-        const {email}=req.body
-        if(!email){
-            return res.status(400).json({message:"user does not exist"})
-        }
-        const user=await userModel.findOne({email:email}).populat({
-            path:cart.productid,
-            model:productmodel
-        })
-
-        if(!user){
-            return res.status(400).json({message:"user does not exist"})
-        }
-
-        return res.status(400).json({message:"Cart is shown successfully"})
-
+     try{
+    const {email}=req.body
+    if(!email){
+        return res.status(400).json({message:"email does not exist"})
     }
-    catch (err){
-        console.log("error in cart for get req")
+    const user=await userModel.findOne({email:email}).populate({
+        path:'cart.productid',     
+        model:Productmodel
+    })
+
+    if(!user){
+        return res.status(400).json({message:"user does not exist"})
     }
+
+    return res.status(400).json({message:"cart is shown successfully"})
+
+}
+catch(err){
+    console.log("error in cart for get req")
+}
+
 })
 
-
 productrouter.post("/post-product", productupload.array('files'), async (req, res) => {
-    const { name, price, description, category, stock, tags, email } = req.body;
-    const images = req.files.map(file => file.path);
+    const { name, description, category, tags, price, stock, email } = req.body;
+    const images = req.files.map((file) => file.path);
     try {
-        const seller = await productmodel.findOne({ email: email });
+        const seller = await Productmodel.findOne({ email: email });
         if (!seller) {
             return res.status(400).json({ message: "Seller not found" });
         }
-
         if (images.length === 0) {
             return res.status(400).json({ message: "Please upload at least one image" });
         }
-
-        const newproduct = await productmodel.create({
+        const newproduct = await Productmodel.create({
             name: name,
-            price: price,
             description: description,
-            image: images,
             category: category,
-            stock: stock,
             tags: tags,
-            email: email
+            price: price,
+            stock: stock,
+            email: email,
+            images: images
         });
-
         res.status(200).json({ message: "Product added successfully", product: newproduct });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Internal Server Error" });
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Server error" });
     }
 });
 
-productrouter.put("/edit-product/:id", productupload.array('files', 10), async (req, res) => {
+productrouter.put('/edit-product/:id', productupload.array('files', 10), async (req, res) => {
     try {
         const { id } = req.params;
+        console.log(id);
         const { name, description, category, tags, price, stock, email } = req.body;
-        const existproduct = await productmodel.findById(id);
+        const existproduct = await Productmodel.findById(id);
 
         if (!existproduct) {
             return res.status(400).json({ message: "Product does not exist" });
         }
-
-        let updateimages = existproduct.image;
+        let updateimages = existproduct.images;
         if (req.files && req.files.length > 0) {
             updateimages = req.files.map((img) => {
-                return `product/${path.basename(img.path)}`;
+                return `/product/${path.basename(img.path)}`;
             });
         }
         existproduct.name = name;
@@ -151,21 +185,21 @@ productrouter.put("/edit-product/:id", productupload.array('files', 10), async (
         existproduct.price = price;
         existproduct.stock = stock;
         existproduct.email = email;
-        existproduct.image = updateimages;
+        existproduct.images = updateimages;
 
         await existproduct.save();
 
         res.status(200).json({ product: existproduct });
     } catch (err) {
         console.log('error in updating');
-        res.status(500).json({ message: "Internal Server Error" });
+        res.status(500).json({ message: "Server error" });
     }
 });
 
-productrouter.delete("/delete-product/:id", async (req, res) => {
+productrouter.delete('/delete-product/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const existproduct = await productmodel.findById(id);
+        const existproduct = await Productmodel.findById(id);
 
         if (!existproduct) {
             return res.status(400).json({ message: "Product does not exist" });
@@ -174,9 +208,9 @@ productrouter.delete("/delete-product/:id", async (req, res) => {
         await existproduct.deleteOne();
         res.status(200).json({ message: "Product deleted successfully" });
     } catch (err) {
-        console.log('error in deleting');
-        res.status(500).json({ message: "Internal Server Error" });
+        console.log('error in delete');
+        res.status(500).json({ message: "Server error" });
     }
 });
 
-module.exports = productrouter;
+module.exports=productrouter;
