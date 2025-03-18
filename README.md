@@ -51,3 +51,7 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+# Milestone 28 - Cancel Order Feature
+Added a "Cancel Order" button in the My Orders page and created a backend endpoint to update order status to "Cancelled".  
+Users can cancel their orders unless they are already marked as "Cancelled".
