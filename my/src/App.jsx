@@ -1,30 +1,42 @@
-import { Route, Routes } from 'react-router-dom';
-import { Login } from './Components/Login';
-import { Signup } from './Components/Signup';
-import { Home } from './page/Home';
-import { Productform } from './Components/Productform';
-import { Productcardforseller } from './Components/productcardforseller'; 
-import { Singleproductpage } from './Components/Singleproductpage';
-import { Singlecard } from './Components/Singlecard';
-import Cart from './page/cart';
-import SelectAddress from './Component/selectaddress';
+import { useState } from 'react'
+import reactLogo from './assets/react.svg'
+import viteLogo from '/vite.svg'
+import './App.css'
+import { Route, Routes } from 'react-router-dom'
+import { Login } from './Component/Login'
+import { Signup } from './Component/Signup'
+import { Home } from './page/Home'
+import Navbar from './Component/Navbar'
+import Singlecard from './Component/Singlecard'
+import Productform from './Component/Productform'
+import Cart from './page/cart'
+import SelectAddress from './page/selectaddress'
+import OrderConfirmation from './page/Oderconfirmation'
+import PrivateRouter from './Router/PrivateRouter'
+
 
 function App() {
+  
+
   return (
     <>
+    <Navbar/>
       <Routes>
-        <Route path="/Home" element={<Home />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Productform" element={<Productform />} />
-        <Route path="/my-product" element={<Productcardforseller />} /> 
-        <Route path="/product/:id" element={<Singlecard/>}/>
-        <Route path="/product/:id" element={<Singleproductpage/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path='/cart'  element={<Cart/>}/>
-        <Route path="*" element={<SelectAddress />} /> 
+        <Route path="/productform" element={
+          <PrivateRouter>
+          <Productform />
+          </PrivateRouter>} />
+       <Route path='/product/:id' element={<Singlecard/>}/>
+       <Route path='/selectaddress' element={<SelectAddress/>}/>  
+       <Route path='/orderconfirmation' element={<OrderConfirmation/>}/>
+       <Route path='*' element={<h1>Not Found</h1>}/> 
       </Routes>
     </>
-  );
+  )
 }
 
-export default App;
+export default App

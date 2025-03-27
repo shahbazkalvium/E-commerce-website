@@ -3,7 +3,6 @@ import axios from 'axios';
 import NavBar from '../components/auth/nav';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-
 const OrderConfirmation = () => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -45,7 +44,7 @@ const OrderConfirmation = () => {
                     _id: item.productId._id,
                     name: item.productId.name,
                     price: item.productId.price,
-                    images: item.productId.images.map(imagePath => `http://localhost:3000${imagePath}`),
+                    images: item.productId.images.map(imagePath => http://localhost:3000${imagePath}),
                     quantity: item.quantity,
                 }));
                 setCartItems(processedCartItems);
@@ -161,16 +160,29 @@ const OrderConfirmation = () => {
                         <div className='p-4 border rounded-md'>
                             <p>Cash on Delivery</p>
                         </div>
-                        <PayPalScriptProvider options={{ clientId: "Aa5uPSZ4wubS4NLeBBmZp0BCWe4sUiFmViQQoSTt5uQghQ_H3qF5_BuD5OKnEWfIsupWMPiabwoI6JPt" }}>
-                            <PayPalButtons style={{ layout: "horizontal" }}
-                            createOrder={(data,actions)=>{
-                                return actions.order.create({purchase_units:[{amount:{value:totalPrice.toFixed(2)}}]})
-                            }}
-                            onApprove={(data,actions)=>{
-                                return actions.order.capture()
-                            }}
-                            >Pay with PayPal</PayPalButtons>
-                            </PayPalScriptProvider>
+                        
+                        <PayPalScriptProvider options={{ clientId: "AYGwnwmeBjjWperGy4a-RWi9mKWFg6LOl8JTWq4QYLF_Sz20OA_-IE6mEpye1F0XbyXeJQQcsXmawKHB" }}>
+                             <PayPalButtons style={{ layout: "horizontal" }} 
+                                 createOrder={(data,actions)=>{
+                                    return actions.order.create({purchase_units:[{amaount:{value:totalPrice.toFixed(2)}}]})
+                                 }}
+                                 onApprove={async(data,actions)=>{
+                                    const order1= actions.order.capture()
+                                    try{
+                                    const response=await axios.post('http://localhost:3000/order/verify-payment',{orderId:order1.id},
+                                        )
+
+                                   if(response.data.success){
+                                    onSuccess()
+                                   }
+
+                                    }catch(err){
+                                        console.log(err)
+                                    }
+
+                                 }}
+                             >Pay with paypal </PayPalButtons>
+                        </PayPalScriptProvider>
                     </div>
                     {/* Place Order Button */}
                     <div className='flex justify-center'>
