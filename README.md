@@ -51,3 +51,6 @@ Features
 Navigation from profile to address form page.
 
 State management for address input.
+
+Milestone 30: PayPal backend
+Implemented PayPal API for online payments. Installed react-paypal-js and integrated PayPalScriptProvider. Configured PayPal sandbox client ID for testing transactions. Added PayPal payment buttons in the order confirmation page. Pushed the updated code to GitHub.
